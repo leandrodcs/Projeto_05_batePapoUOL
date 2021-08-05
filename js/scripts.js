@@ -78,9 +78,10 @@ function printMessages(response) {
             `;
         }
     }
-    main.scrollIntoView({block: "end"});
+    document.querySelector(".scroll-devide").scrollIntoView({block: "end"});
 
 }
+
 function sendMessages() {
     
     const message = {
