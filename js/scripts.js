@@ -5,6 +5,8 @@ const url = {
 }
 let username = "";
 askName();
+loadMessages();
+setInterval(loadMessages, 3000);
 function askName() {
     const name = prompt("Qual é seu nome?");
     const nameObject = {name};
@@ -21,7 +23,7 @@ function unavailableUser(error) {
     console.log("Já tem esse nome mané!")
     askName();
 }
-loadMessages();
+
 function loadMessages() {
     const promise = axios.get(url.messages);
     promise.then(printMessages);
