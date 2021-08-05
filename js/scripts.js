@@ -5,25 +5,27 @@ const url = {
 }
 let username = "";
 askName();
-loadMessages();
+
 setInterval(loadMessages, 3000);
 function askName() {
-    const name = prompt("Qual é seu nome?");
-    const nameObject = {name};
-    username = nameObject.name;
-    const promise = axios.post(url.users, nameObject);
+    username = prompt("Escolha um nome para participar do chat!");
+    const promise = axios.post(url.users, {name: username});
     promise.then(availableUser);
     promise.catch(unavailableUser);
 }
 function availableUser(response) {
     console.log("Esse nome está disponível!")
+    loadMessages();
+    setInterval(userStatus, 5000);
 
 }
 function unavailableUser(error) {
     console.log("Já tem esse nome mané!")
     askName();
 }
-
+function userStatus() {
+    axios.post(url.status, {name: username});
+}
 function loadMessages() {
     const promise = axios.get(url.messages);
     promise.then(printMessages);
