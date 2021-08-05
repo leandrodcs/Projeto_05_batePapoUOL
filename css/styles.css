@@ -8,6 +8,51 @@ body {
   background: #f3f3f3;
 }
 
+/* LOG-IN SCREEN */
+
+.login-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100vw;
+  height: 100%;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.login-page img {
+  width: 130px;
+  height: 92px;
+  margin: 13vh 0 16vh 0;
+}
+.login-page input {
+  width: 260px;
+  height: 54px;
+  border-radius: 4px;
+  margin-bottom: 3vh;
+  text-align: center;
+  font-size: 18px;
+  outline: none;
+  border: 1px solid #d7d7d7;
+}
+.login-page input::placeholder {
+  color: #aeaeae;
+}
+.login-page button {
+  width: 109px;
+  height: 45px;
+  border-radius: 9px;
+  font-size: 18px;
+  background: #e7e7e7;
+  color: #696969;
+  border: none;
+}
+.vanish {
+  display: none;
+}
+
 /* HEADER */
 
 .header {
@@ -86,8 +131,6 @@ body {
 .input::placeholder {
   color: #000000;
 }
-
-/* LOG-IN SCREEN */
 
 /* roboto 400, 700 e 400 italic */
 

@@ -4,24 +4,30 @@ const url = {
     messages: "https://mock-api.bootcamp.respondeai.com.br/api/v3/uol/messages"
 }
 let username = "";
-askName();
+//askName();
 
-setInterval(loadMessages, 3000);
+
 function askName() {
     username = prompt("Escolha um nome para participar do chat!");
     const promise = axios.post(url.users, {name: username});
     promise.then(availableUser);
     promise.catch(unavailableUser);
 }
+function checkName() {
+    username = document.querySelector(".login-page input").value;
+    const promise = axios.post(url.users, {name: username});
+    promise.then(availableUser);
+    promise.catch(unavailableUser);
+}
 function availableUser(response) {
-    console.log("Esse nome está disponível!")
+    console.log("Esse nome está disponível!");
+    document.querySelector(".login-page").classList.add("vanish");
     loadMessages();
+    setInterval(loadMessages, 3000);
     setInterval(userStatus, 5000);
-
 }
 function unavailableUser(error) {
-    console.log("Já tem esse nome mané!")
-    askName();
+    alert("Já tem alguém com esse nome, escolhe outro aí!")
 }
 function userStatus() {
     axios.post(url.status, {name: username});
@@ -72,6 +78,8 @@ function printMessages(response) {
             `;
         }
     }
+    main.scrollIntoView({block: "end"});
+
 }
 function sendMessages() {
     
@@ -83,4 +91,5 @@ function sendMessages() {
     }
     const promise = axios.post(url.messages, message);
     promise.then(loadMessages);
+    document.querySelector(".input").value = "";
 }
