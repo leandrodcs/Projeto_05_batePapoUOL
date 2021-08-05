@@ -1,3 +1,5 @@
+/* BIG GUYS */
+
 * {
   box-sizing: border-box;
   font-family: roboto;
@@ -5,6 +7,9 @@
 body {
   background: #f3f3f3;
 }
+
+/* HEADER */
+
 .header {
   position: fixed;
   top: 0;
@@ -23,6 +28,9 @@ body {
   width: 75px;
   height: 53px;
 }
+
+/* MAIN PAGE */
+
 .main {
   margin: 100px 0 100px 0;
   width: 100%;
@@ -31,14 +39,14 @@ body {
 .message {
   background: white;
   width: 100%;
-  min-height: 40px;
   border-radius: 2px;
   margin: 0 0 4px 0;
   display: flex;
   align-items: center;
-  padding: 0 9px 0 8px;
+  padding: 13px 8px;
   font-size: 14px;
   line-height: 20px;
+  word-break: break-all;
 }
 .private {
   background: #ffdede;
@@ -52,6 +60,9 @@ body {
 .name {
   font-weight: 700;
 }
+
+/* FOOTER */
+
 .footer {
   position: fixed;
   bottom: 0;
@@ -75,6 +86,8 @@ body {
 .input::placeholder {
   color: #000000;
 }
+
+/* LOG-IN SCREEN */
 
 /* roboto 400, 700 e 400 italic */
 
