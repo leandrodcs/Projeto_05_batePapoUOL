@@ -4,15 +4,9 @@ const url = {
     messages: "https://mock-api.bootcamp.respondeai.com.br/api/v3/uol/messages"
 }
 let username = "";
-//askName();
+let user = "Todos";
+let type = "message";
 
-
-function askName() {
-    username = prompt("Escolha um nome para participar do chat!");
-    const promise = axios.post(url.users, {name: username});
-    promise.then(availableUser);
-    promise.catch(unavailableUser);
-}
 function checkName() {
     username = document.querySelector(".login-page input").value;
     const promise = axios.post(url.users, {name: username});
@@ -23,8 +17,10 @@ function availableUser(response) {
     console.log("Esse nome está disponível!");
     document.querySelector(".login-page").classList.add("vanish");
     loadMessages();
+    loadUsers();
     setInterval(loadMessages, 3000);
     setInterval(userStatus, 5000);
+    setInterval(loadUsers, 5000);
 }
 function unavailableUser(error) {
     alert("Já tem alguém com esse nome, escolhe outro aí!")
@@ -38,7 +34,6 @@ function loadMessages() {
 }
 function printMessages(response) {
     const messages = response;
-    console.log(messages.data);
     document.querySelector(".main").innerHTML = "";
     const main = document.querySelector(".main");
     for(i=0;i<messages.data.length;i++) {
@@ -78,19 +73,109 @@ function printMessages(response) {
             `;
         }
     }
-    document.querySelector(".scroll-devide").scrollIntoView({block: "end"});
-
+    //document.querySelector(".scroll-devide").scrollIntoView({block: "end"});
 }
-
 function sendMessages() {
-    
     const message = {
         from: username,
-        to: "Todos",
+        to: user,
         text: document.querySelector(".input").value,
-        type: "message",
+        type: type
     }
+
     const promise = axios.post(url.messages, message);
     promise.then(loadMessages);
     document.querySelector(".input").value = "";
+}
+function toggleSidebar() {
+    document.querySelector(".sidebar").classList.toggle("vanish");
+    document.querySelector(".gray-background").classList.toggle("vanish");
+}
+function loadUsers() {
+    const promise = axios.get(url.users);
+    promise.then(printUsers);
+}
+function printUsers(response) {
+    const users = response;
+    const userList = document.querySelector(".users");
+    userList.innerHTML = "";
+    if (user === "Todos") {
+        userList.innerHTML = `
+        <div class="user selected" onclick="selectWhoToTalk(this)">
+            <div class="left">
+                <ion-icon name="person-circle"></ion-icon>
+                &nbsp;
+                <div class="username">Todos</div>
+            </div>
+            <img class= "check" src="assets/images/Vector.png">
+        </div>
+    `;
+    }
+    if (user !== "Todos") {
+    userList.innerHTML = `
+        <div class="user" onclick="selectWhoToTalk(this)">
+            <div class="left">
+                <ion-icon name="person-circle"></ion-icon>
+                &nbsp;
+                <div class="username">Todos</div>
+            </div>
+            <img class= "check" src="assets/images/Vector.png">
+        </div>
+    `;
+    }
+    for(i=0 ; i<users.data.length ; i++) {
+        if (users.data[i].name === user) {
+            userList.innerHTML += `
+            <div class="user selected" onclick="selectWhoToTalk(this)">
+                <div class="left">
+                    <ion-icon name="person-circle"></ion-icon>
+                    &nbsp;
+                    <div class="username">${users.data[i].name}</div>
+                </div>
+                <img class= "check" src="assets/images/Vector.png">
+            </div>
+        `;
+        }
+        else {
+        userList.innerHTML += `
+            <div class="user" onclick="selectWhoToTalk(this)">
+                <div class="left">
+                    <ion-icon name="person-circle"></ion-icon>
+                    &nbsp;
+                    <div class="username">${users.data[i].name}</div>
+                </div>
+                <img class= "check" src="assets/images/Vector.png">
+            </div>
+        `;
+        }
+    }
+}
+function selectPrivacy(selected) {
+    document.querySelector(".fixed .private").classList.remove("selected");
+    document.querySelector(".public").classList.remove("selected");
+    selected.classList.add("selected");
+    printFooter(user);
+    if(selected.classList.contains("private")) {
+        type = "private_message";
+    }
+    else {
+        type = "message";
+    }
+
+}
+function selectWhoToTalk(selected) {
+    const users = document.querySelectorAll(".user");
+    for(i=0 ; i < users.length ; i++) {
+        users[i].classList.remove("selected");
+    }
+    selected.classList.add("selected");
+    user = selected.querySelector(".left .username").innerHTML;
+    printFooter(user);
+}
+function printFooter(user) {
+    const footer = document.querySelector(".who-is-listening");
+    footer.innerHTML = `Enviando para ${user} (público)`;
+    if (document.querySelector(".private.selected")) {
+        footer.innerHTML = `Enviando para ${user} (reservadamente)`;
+    }
 }
