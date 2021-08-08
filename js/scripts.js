@@ -21,9 +21,11 @@ function enterClickForMessage(event) {
         document.querySelector(".footer ion-icon").click();
     }
 }
-
 function checkName() {
     username = document.querySelector(".login-page input").value;
+    document.querySelector(".login-page input").classList.add("vanish");
+    document.querySelector(".login-page button").classList.add("vanish");
+    document.querySelector(".loading").classList.remove("vanish");
     const promise = axios.post(url.users, { name: username });
     promise.then(availableUser);
     promise.catch(unavailableUser);
@@ -38,6 +40,10 @@ function availableUser(response) {
     setInterval(loadUsers, 5000);
 }
 function unavailableUser(error) {
+    document.querySelector(".login-page input").classList.remove("vanish");
+    document.querySelector(".login-page button").classList.remove("vanish");
+    document.querySelector(".loading").classList.add("vanish");
+    document.querySelector(".login-page input").value = "";
     alert("Já tem alguém com esse nome, escolhe outro aí!")
 }
 function userStatus() {
