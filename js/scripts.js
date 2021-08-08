@@ -7,6 +7,21 @@ let username = "";
 let user = "Todos";
 let type = "message";
 
+document.querySelector(".login-page").addEventListener("keyup", enterClickForLogin);
+function enterClickForLogin(event) {
+    if (event.keyCode === 13) {
+        event.preventDefault();
+        document.querySelector(".login-page button").click();
+    }
+}
+document.querySelector(".input").addEventListener("keyup", enterClickForMessage);
+function enterClickForMessage(event) {
+    if (event.keyCode === 13) {
+        event.preventDefault();
+        document.querySelector(".footer ion-icon").click();
+    }
+}
+
 function checkName() {
     username = document.querySelector(".login-page input").value;
     const promise = axios.post(url.users, { name: username });
@@ -61,7 +76,8 @@ function printMessages(response) {
             `;
         }
         if (messages.data[i].type === "private_message") {
-            main.innerHTML += `
+            if (username === messages.data[i].to) {
+                main.innerHTML += `
                 <div class="message private">
                     <p>
                         <span class="time">(${messages.data[i].time}) </span>
@@ -71,6 +87,7 @@ function printMessages(response) {
                     </p>
                 </div>
             `;
+            }
         }
     }
     document.querySelector(".scroll-devide").scrollIntoView({ block: "end" });
