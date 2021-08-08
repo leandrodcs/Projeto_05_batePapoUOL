@@ -9,7 +9,7 @@ let type = "message";
 
 function checkName() {
     username = document.querySelector(".login-page input").value;
-    const promise = axios.post(url.users, {name: username});
+    const promise = axios.post(url.users, { name: username });
     promise.then(availableUser);
     promise.catch(unavailableUser);
 }
@@ -26,7 +26,7 @@ function unavailableUser(error) {
     alert("Já tem alguém com esse nome, escolhe outro aí!")
 }
 function userStatus() {
-    axios.post(url.status, {name: username});
+    axios.post(url.status, { name: username });
 }
 function loadMessages() {
     const promise = axios.get(url.messages);
@@ -36,8 +36,8 @@ function printMessages(response) {
     const messages = response;
     document.querySelector(".main").innerHTML = "";
     const main = document.querySelector(".main");
-    for(i=0;i<messages.data.length;i++) {
-        if(messages.data[i].type === "status") {
+    for (i = 0; i < messages.data.length; i++) {
+        if (messages.data[i].type === "status") {
             main.innerHTML += `
                 <div class="message movement">
                     <p>
@@ -48,7 +48,7 @@ function printMessages(response) {
                 </div>
             `;
         }
-        if(messages.data[i].type === "message") {
+        if (messages.data[i].type === "message") {
             main.innerHTML += `
                 <div class="message ">
                     <p>
@@ -60,7 +60,7 @@ function printMessages(response) {
                 </div>
             `;
         }
-        if(messages.data[i].type === "private_message") {
+        if (messages.data[i].type === "private_message") {
             main.innerHTML += `
                 <div class="message private">
                     <p>
@@ -73,7 +73,7 @@ function printMessages(response) {
             `;
         }
     }
-    //document.querySelector(".scroll-devide").scrollIntoView({block: "end"});
+    document.querySelector(".scroll-devide").scrollIntoView({ block: "end" });
 }
 function sendMessages() {
     const message = {
@@ -85,6 +85,7 @@ function sendMessages() {
 
     const promise = axios.post(url.messages, message);
     promise.then(loadMessages);
+    promise.catch(relog);
     document.querySelector(".input").value = "";
 }
 function toggleSidebar() {
@@ -112,7 +113,7 @@ function printUsers(response) {
     `;
     }
     if (user !== "Todos") {
-    userList.innerHTML = `
+        userList.innerHTML = `
         <div class="user" onclick="selectWhoToTalk(this)">
             <div class="left">
                 <ion-icon name="person-circle"></ion-icon>
@@ -123,7 +124,7 @@ function printUsers(response) {
         </div>
     `;
     }
-    for(i=0 ; i<users.data.length ; i++) {
+    for (i = 0; i < users.data.length; i++) {
         if (users.data[i].name === user) {
             userList.innerHTML += `
             <div class="user selected" onclick="selectWhoToTalk(this)">
@@ -137,7 +138,7 @@ function printUsers(response) {
         `;
         }
         else {
-        userList.innerHTML += `
+            userList.innerHTML += `
             <div class="user" onclick="selectWhoToTalk(this)">
                 <div class="left">
                     <ion-icon name="person-circle"></ion-icon>
@@ -155,17 +156,16 @@ function selectPrivacy(selected) {
     document.querySelector(".public").classList.remove("selected");
     selected.classList.add("selected");
     printFooter(user);
-    if(selected.classList.contains("private")) {
+    if (selected.classList.contains("private")) {
         type = "private_message";
     }
     else {
         type = "message";
     }
-
 }
 function selectWhoToTalk(selected) {
     const users = document.querySelectorAll(".user");
-    for(i=0 ; i < users.length ; i++) {
+    for (i = 0; i < users.length; i++) {
         users[i].classList.remove("selected");
     }
     selected.classList.add("selected");
@@ -178,4 +178,7 @@ function printFooter(user) {
     if (document.querySelector(".private.selected")) {
         footer.innerHTML = `Enviando para ${user} (reservadamente)`;
     }
+}
+function relog(error) {
+    window.location.reload()
 }
