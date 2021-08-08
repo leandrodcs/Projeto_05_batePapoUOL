@@ -76,7 +76,7 @@ function printMessages(response) {
             `;
         }
         if (messages.data[i].type === "private_message") {
-            if (username === messages.data[i].to) {
+            if (username === messages.data[i].to || username === messages.data[i].from) {
                 main.innerHTML += `
                 <div class="message private">
                     <p>
