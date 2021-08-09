@@ -225,7 +225,6 @@ function printFooter(user) {
     }
 }
 function relog(error) {
-    alert("Você foi desconectado, escolha seu nick novamente!");
     window.location.reload();
 }
 function scrollMessages() {
