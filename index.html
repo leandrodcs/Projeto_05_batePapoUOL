@@ -7,22 +7,20 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>Bate-papo UOL</title>
 </head>
 
 <body>
-
   <div class="login-page">
     <img class="logo" src="assets/images/logo 2.png" alt="Seu navegador não pode carregar a imagem">
-    <input class="" placeholder="Digite seu nome">
+    <input class="" placeholder="Digite seu nome" onfocus="this.placeholder = ''"
+      onblur="this.placeholder = 'Digite seu nome'">
     <button class="" onclick="checkName()">Entrar</button>
     <div class="loading vanish">
       <img src="assets/gifs/pikachu.gif">
       <div>Entrando...</div>
     </div>
   </div>
-
   <header class="header">
     <img src="assets/images/logo 1.png" alt="Seu navegador não pode carregar a imagem">
     <ion-icon name="people" onclick="toggleSidebar()"></ion-icon>
@@ -31,12 +29,12 @@
   </main>
   <footer class="footer">
     <div class="footer-left">
-      <input class="input" placeholder="Escreva aqui..." />
+      <input class="input" placeholder="Escreva aqui..." onfocus="this.placeholder = ''"
+        onblur="this.placeholder = 'Escreva aqui...'" />
       <div class="who-is-listening">Enviando para Todos (público)</div>
     </div>
     <ion-icon onclick="checkIfRecipientIsOnline()" name="paper-plane-outline"></ion-icon>
   </footer>
-
   <div class="sidebar vanish">
     <div class="fixed">
       <div class="visibility-header">Escolha a visibilidade:</div>
@@ -56,34 +54,12 @@
       </div>
       <div class="users-header">Escolha um contato para<br> enviar mensagem:</div>
     </div>
-    <div class="users">
-      <div class="user">
-        <div class="left">
-          <ion-icon name="person-circle"></ion-icon>
-          &nbsp;
-          <div class="username">Todos</div>
-        </div>
-        <img class="check" src="assets/images/Vector.png">
-      </div>
-    </div>
+    <div class="users"></div>
   </div>
   <div class="gray-background vanish" onclick="toggleSidebar()"></div>
-
   <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="js/scripts.js"></script>
 </body>
 
 </html>
-
-<!--
-  <ion-icon name="people">
-  <ion-icon name="lock-open"></ion-icon>
-  <ion-icon name="lock-closed"></ion-icon>
-  <ion-icon name="person-circle"></ion-icon>
-
-
-
-
-
--->

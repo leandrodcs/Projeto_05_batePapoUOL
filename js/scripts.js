@@ -40,7 +40,7 @@ function availableUser(response) {
     loadUsers();
     setInterval(loadMessages, 3000);
     setInterval(userStatus, 5000);
-    setInterval(loadUsers, 5000);
+    setInterval(loadUsers, 10000);
 }
 function unavailableUser(error) {
     document.querySelector(".login-page input").classList.remove("vanish");
@@ -155,7 +155,7 @@ function printUsers(response) {
             <div class="left">
                 <ion-icon name="person-circle"></ion-icon>
                 &nbsp;
-                <div class="username">Todos</div>
+                <p class="username">Todos</p>
             </div>
             <img class= "check" src="assets/images/Vector.png">
         </div>
@@ -167,7 +167,7 @@ function printUsers(response) {
             <div class="left">
                 <ion-icon name="person-circle"></ion-icon>
                 &nbsp;
-                <div class="username">Todos</div>
+                <p class="username">Todos</p>
             </div>
             <img class= "check" src="assets/images/Vector.png">
         </div>
@@ -180,7 +180,7 @@ function printUsers(response) {
                 <div class="left">
                     <ion-icon name="person-circle"></ion-icon>
                     &nbsp;
-                    <div class="username">${users.data[i].name}</div>
+                    <p class="username">${users.data[i].name}</p>
                 </div>
                 <img class= "check" src="assets/images/Vector.png">
             </div>
@@ -192,7 +192,7 @@ function printUsers(response) {
                 <div class="left">
                     <ion-icon name="person-circle"></ion-icon>
                     &nbsp;
-                    <div class="username">${users.data[i].name}</div>
+                    <p class="username">${users.data[i].name}</p>
                 </div>
                 <img class= "check" src="assets/images/Vector.png">
             </div>

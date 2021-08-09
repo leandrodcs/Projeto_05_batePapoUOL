@@ -147,6 +147,12 @@ body {
   font-size: 14px;
   line-height: 20px;
   color: #505050;
+
+  width: 330px;
+  height: 20px;
+  text-overflow: ellipsis;
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
 .footer-left {
   display: flex;
@@ -175,7 +181,6 @@ body {
 .sidebar .public,
 .sidebar .private,
 .user,
-.user .left,
 .users-header,
 .visibility-header,
 .public .left,
@@ -185,6 +190,9 @@ body {
   align-items: center;
   height: 36px;
   background: #ffffff;
+}
+.user .left {
+  display: flex;
 }
 .visibility-header,
 .users-header {
@@ -200,6 +208,13 @@ body {
 }
 .users {
   overflow-y: scroll;
+}
+.username{
+  width: 185px;
+  max-height: 18px;
+  text-overflow: clip;
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
 .gray-background {
   position: fixed;
