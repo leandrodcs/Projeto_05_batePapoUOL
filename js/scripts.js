@@ -6,15 +6,18 @@ const url = {
 let username = "";
 let user = "Todos";
 let type = "message";
-
+let message = {};
+let firstTime = true;
+let oldLastMessage;
+let newLastMessage;
 document.querySelector(".login-page").addEventListener("keyup", enterClickForLogin);
+document.querySelector(".input").addEventListener("keyup", enterClickForMessage);
 function enterClickForLogin(event) {
     if (event.keyCode === 13) {
         event.preventDefault();
         document.querySelector(".login-page button").click();
     }
 }
-document.querySelector(".input").addEventListener("keyup", enterClickForMessage);
 function enterClickForMessage(event) {
     if (event.keyCode === 13) {
         event.preventDefault();
@@ -96,20 +99,43 @@ function printMessages(response) {
             }
         }
     }
-    document.querySelector(".scroll-devide").scrollIntoView({ block: "end" });
+    scrollMessages()
 }
 function sendMessages() {
-    const message = {
+    message = {
         from: username,
         to: user,
         text: document.querySelector(".input").value,
         type: type
     }
-
     const promise = axios.post(url.messages, message);
     promise.then(loadMessages);
     promise.catch(relog);
     document.querySelector(".input").value = "";
+}
+function checkIfRecipientIsOnline() {
+    if (document.querySelector(".input").value === "") {
+        return;
+    }
+    const promise = axios.get(url.users);
+    promise.then(checking);
+}
+function checking(response) {
+    const users = response;
+    for (i = 0; i < users.data.length; i++) {
+        if (users.data[i].name === user || user === "Todos") {
+            sendMessages()
+            return;
+        }
+    }
+    realocateUser();
+}
+function realocateUser() {
+    document.querySelector(".input").value = "";
+    user = "Todos";
+    selectPrivacy(document.querySelector(".public"));
+    selectWhoToTalk(document.querySelectorAll(".user")[0]);
+    alert("Este usuário saiu, voltando a falar com Todos...")
 }
 function toggleSidebar() {
     document.querySelector(".sidebar").classList.toggle("vanish");
@@ -203,5 +229,14 @@ function printFooter(user) {
     }
 }
 function relog(error) {
-    window.location.reload()
+    alert("Você foi desconectado, escolha seu nick novamente!");
+    window.location.reload();
+}
+function scrollMessages() {
+    const scroll = document.querySelectorAll(".time");
+    newLastMessage = scroll[scroll.length - 1].innerHTML;
+    if (oldLastMessage !== newLastMessage) {
+        scroll[scroll.length - 1].scrollIntoView({});
+        oldLastMessage = newLastMessage;
+    }
 }
