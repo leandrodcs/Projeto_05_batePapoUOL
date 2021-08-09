@@ -137,10 +137,6 @@ function realocateUser() {
     selectWhoToTalk(document.querySelectorAll(".user")[0]);
     alert("Este usuário saiu, voltando a falar com Todos...")
 }
-function toggleSidebar() {
-    document.querySelector(".sidebar").classList.toggle("vanish");
-    document.querySelector(".gray-background").classList.toggle("vanish");
-}
 function loadUsers() {
     const promise = axios.get(url.users);
     promise.then(printUsers);
@@ -223,9 +219,9 @@ function selectWhoToTalk(selected) {
 }
 function printFooter(user) {
     const footer = document.querySelector(".who-is-listening");
-    footer.innerHTML = `Enviando para ${user} (público)`;
+    footer.innerHTML = `Enviando para&nbsp;<div>${user}</div>&nbsp;(público)`;
     if (document.querySelector(".private.selected")) {
-        footer.innerHTML = `Enviando para ${user} (reservadamente)`;
+        footer.innerHTML = `Enviando para&nbsp;<div>${user}</div>&nbsp;(reservadamente)`;
     }
 }
 function relog(error) {
@@ -239,4 +235,8 @@ function scrollMessages() {
         scroll[scroll.length - 1].scrollIntoView({});
         oldLastMessage = newLastMessage;
     }
+}
+function toggleSidebar() {
+    document.querySelector(".sidebar").classList.toggle("sidebar-show");
+    document.querySelector(".gray-background").classList.toggle("vanish");
 }
